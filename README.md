@@ -1,9 +1,6 @@
----
-title: "Hubbles Constant and Age of The Universe"
-author: "Rahul Fernandes"
-date: "2025-02-13"
-output: pdf_document
----
+# Hubbles Constant and Age of The Universe
+Rahul Kenneth Fernandes
+02/13/2025
 
 
 
