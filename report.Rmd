@@ -209,7 +209,7 @@ print(cor_test)
 
 Linear Relationship:
 
-```{r, echo=FALSE}
+```{r, message=FALSE, echo=FALSE}
 ggplot(galaxies, aes(x = distance, y = velocity)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", color = "red") +
