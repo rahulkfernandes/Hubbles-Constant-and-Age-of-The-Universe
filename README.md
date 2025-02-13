@@ -32,10 +32,6 @@ load("./galaxies.RData")
 ### Dataset
 
 
-``` r
-head(galaxies)
-```
-
 ```
 ##     Galaxy velocity distance
 ## 1  NGC0300      133     2.00
@@ -44,10 +40,6 @@ head(galaxies)
 ## 4  NGC1365     1594    17.95
 ## 5  NGC1425     1473    21.88
 ## 6  NGC2403      278     3.22
-```
-
-``` r
-glimpse(galaxies)
 ```
 
 ```
@@ -63,10 +55,6 @@ The dataset contains three columns: Galaxy, velocity and distance. Where, the Ga
 ### Summary Statistics
 
 
-``` r
-summary(galaxies)
-```
-
 ```
 ##       Galaxy      velocity         distance    
 ##  IC4182  : 1   Min.   :  80.0   Min.   : 2.00  
@@ -79,20 +67,11 @@ summary(galaxies)
 ```
 
 
-``` r
-attach(galaxies)
-```
 
-\newpage
 ### Univariate Analysis
 In this part, we look at velocity and distance individually.
 
 Range of Velocity:
-
-``` r
-range <-range(velocity)
-print(paste("Min: ", range[1], "; Max: ", range[2]))
-```
 
 ```
 ## [1] "Min:  80 ; Max:  1794"
@@ -100,16 +79,8 @@ print(paste("Min: ", range[1], "; Max: ", range[2]))
 
 Variance and Standard Deviation of Velocity:
 
-``` r
-print(paste("Variance:", var(velocity)))
-```
-
 ```
 ## [1] "Variance: 262978.157608696"
-```
-
-``` r
-print(paste("Standard Deviation:", sd(velocity)))
 ```
 
 ```
@@ -117,104 +88,34 @@ print(paste("Standard Deviation:", sd(velocity)))
 ```
 IQR of Velocity:
 
-``` r
-print(paste("IQR of velocity:", IQR(velocity)))
-```
-
 ```
 ## [1] "IQR of velocity: 806.75"
 ```
 
 Outliers in velocity (using 1.5 * IQR):
 
-``` r
-Q1 <- quantile(velocity, 0.25)
-Q3 <- quantile(velocity, 0.75)
-IQR_value <- IQR(velocity)
-
-lower_bound <- Q1 - 1.5 * IQR_value
-upper_bound <- Q3 + 1.5 * IQR_value
-
-outliers <- velocity[velocity < lower_bound | velocity > velocity]
-print(outliers)
-```
-
 ```
 ## integer(0)
 ```
 
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
 
-``` r
-ggplot(galaxies, aes(x = velocity)) +
-  geom_histogram(fill = "skyblue", color = "black", bins = 5, alpha = 0.7) +  # Histogram
-  geom_vline(aes(xintercept = mean(velocity, na.rm = TRUE)), 
-             color = "black", linetype = "solid", linewidth = 1.2) +  # Solid black mean line
-  geom_vline(aes(xintercept = median(velocity, na.rm = TRUE)), 
-             color = "red", linetype = "dashed", linewidth = 1.2) +  # Dashed red median line
-  labs(title = "Histogram of Velocity", x = "Velocity", y = "Count") +
-  theme_minimal() +
-  annotate("text", x = mean(velocity, na.rm = TRUE), y = 10, 
-           label = "Mean", color = "black", angle = 90, vjust = -1, hjust=0.8) +
-  annotate("text", x = median(velocity, na.rm = TRUE), y = 10, 
-           label = "Median", color = "red", angle = 90, vjust = -1, hjust=0.8)
-```
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-9</p>
-</div>
-
-
-``` r
-ggplot(galaxies , aes(x = velocity)) +
-  geom_density(alpha = 0.6, fill='lightblue') +
-  labs(title = "Density Plot of Velocity") +
-  theme_minimal()
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-10</p>
-</div>
-
-
-``` r
-ggplot(galaxies, aes(y = velocity)) +
-  geom_boxplot(fill = "skyblue") +
-  labs(title = "Velocity Boxplot") +
-  theme_minimal()
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-11</p>
-</div>
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
 
 Velocity: The median velocity (827.0 km/s) is lesser than the mean velocity (924.4 km/s), hence indicating a right skew in the data. This can be observed in the histogram of velocity. This can also be observed in the box plot, where the median line is not at the center of the box plot. The box plot also shows no outliers. Considering the minimum velocity (80.0 km/s), maximum velocity (1794.0 km/s), the IQR (806.75 km/s) and the density plot, we can observe that the data is not closely packed near the center and has a wide spread. We can also see this when we calculate the Standard Deviation of the velocity data (512.814 km/s). Hence, there is a deviation from the normal expected bell curve of a normal distribution.
 
 
 Range of Distance:
 
-``` r
-range <- range(distance)
-print(paste("Min: ", range[1], "; Max: ", range[2]))
-```
-
 ```
 ## [1] "Min:  2 ; Max:  21.98"
 ```
 Variance and Standard Deviation of Distance:
 
-``` r
-print(paste("Variance:", var(distance)))
-```
-
 ```
 ## [1] "Variance: 33.8101389492754"
-```
-
-``` r
-print(paste("Standard Deviation:", sd(distance)))
 ```
 
 ```
@@ -222,78 +123,21 @@ print(paste("Standard Deviation:", sd(distance)))
 ```
 IQR of Distance:
 
-``` r
-print(paste("IQR of distance:", IQR(distance)))
-```
-
 ```
 ## [1] "IQR of distance: 7.34"
 ```
 
 Outliers in distance (using 1.5 * IQR):
 
-``` r
-Q1 <- quantile(distance, 0.25)
-Q3 <- quantile(distance, 0.75)
-IQR_value <- IQR(distance)
-
-lower_bound <- Q1 - 1.5 * IQR_value
-upper_bound <- Q3 + 1.5 * IQR_value
-
-outliers <- distance[distance < lower_bound | distance > upper_bound]
-print(outliers)
-```
-
 ```
 ## numeric(0)
 ```
 
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png)
 
-``` r
-ggplot(galaxies, aes(x = distance)) +
-  geom_histogram(fill = "lavender", color = "black", bins = 5, alpha = 0.7) +  # Histogram
-  geom_vline(aes(xintercept = mean(distance)), 
-             color = "black", linetype = "solid", linewidth = 1.2) +  # Solid black mean line
-  geom_vline(aes(xintercept = median(distance)), 
-             color = "red", linetype = "dashed", linewidth = 1.2) +  # Dashed red median line
-  labs(title = "Histogram of Distance", x = "Velocity", y = "Count") +
-  theme_minimal() +
-  annotate("text", x = mean(distance), y = 10, 
-           label = "Mean", color = "black", angle = 90, vjust = -1, hjust=0.8) +
-  annotate("text", x = median(distance), y = 10, 
-           label = "Median", color = "red", angle = 90, vjust = -1, hjust=0.8)
-```
+![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17-1.png)
 
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-16</p>
-</div>
-
-
-``` r
-ggplot(galaxies , aes(x = distance)) +
-  geom_density(alpha = 0.6, fill='lavender') +
-  labs(title = "Density Plot of Distance") +
-  theme_minimal()
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-17</p>
-</div>
-
-
-``` r
-ggplot(galaxies, aes(y = distance)) +
-  geom_boxplot(fill = "lavender") +
-  labs(title = "Distance Boxplot") +
-  theme_minimal()
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-18</p>
-</div>
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
 
 Distance: the median distance (13.08 Mpc) is greater than the mean distance (12.05 Mpc), hence indicating a left skew in the data. This can be observed in the histogram of distances. This can also be observed in the box plot, where the median line is not at the center of the box plot. The box plot also shows no outliers. Considering the minimum distance (2.00 Mpc), maximum distance (21.98 Mpc), the IQR (7.34 Mpc) and the density plot, we can observe that the data is closely packed near the center and has a wide spread. We can also see this when we calculate the Standard Deviation of the distances (5.814649 Mpc). Hence, there is a deviation from the normal expected bell curve of a normal distribution.
 
@@ -301,40 +145,9 @@ Distance: the median distance (13.08 Mpc) is greater than the mean distance (12.
 ### Bivariate Analysis
 Correlation matrix:
 
-
-``` r
-numerical_data <- galaxies %>%
-  select(velocity, distance)
-
-cor_matrix <- cor(numerical_data, method = "pearson")
-# Reshape matrix using base R
-cor_matrix_melt <- as.data.frame.table(cor_matrix, responseName = "value")
-colnames(cor_matrix_melt) <- c("Var1", "Var2", "value")
-
-# Create heatmap with ggplot2
-ggplot(cor_matrix_melt, aes(x = Var1, y = Var2, fill = value)) +
-  geom_tile(color = "white") +
-  geom_text(aes(label = round(value, 2)), color = "black", size = 4) +
-  scale_fill_gradient2(
-    low = "blue", mid = "white", high = "red",
-    midpoint = 0, limit = c(-1, 1)
-  ) +
-  labs(title = "Correlation Heatmap", x = "", y = "") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-19</p>
-</div>
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19-1.png)
 
 Pearson Correlation Test:
-
-``` r
-cor_test <- cor.test(distance, velocity, method = "pearson")
-print(cor_test)
-```
 
 ```
 ## 
@@ -353,18 +166,11 @@ print(cor_test)
 Linear Relationship:
 
 
-``` r
-ggplot(galaxies, aes(x = distance, y = velocity)) +
-  geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", color = "red") +
-  labs(title = "Velocity vs. Distance", x = "Distance (Mpc)", y = "Velocity (km/s)") +
-  theme_minimal()
+```
+## `geom_smooth()` using formula = 'y ~ x'
 ```
 
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-21</p>
-</div>
+![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21-1.png)
 The correlation matrix heat map and the Pearson Correlation test show us that there is high correlation between velocity and distance with a Pearson's Coefficient of 0.86. The linear relationship is confirmed by the scatter plot of velocity and distance with a regression line plotted through it. From this information, we can proceed to fit a linear model.
 
 ## Fitting a No-Intercept Model
@@ -375,10 +181,6 @@ model <- lm(velocity ~ distance + 0, data = galaxies)
 ```
 
 Model Summary:
-
-``` r
-summary(model)
-```
 
 ```
 ## 
@@ -402,78 +204,21 @@ summary(model)
 
 Plotting the Linear Model:
 
-
-``` r
-ggplot(galaxies, aes(x = distance, y = velocity)) +
-  geom_point(alpha = 0.6) +
-  geom_smooth(
-    method = "lm",
-    formula = y ~ x + 0,  # No-intercept line
-    color = "red",
-    se = TRUE  # Show confidence interval
-  ) +
-  labs(
-    title = "Hubble's Law Fit: Velocity vs Distance",
-    x = "Distance (Mpc)",
-    y = "Velocity (km/s)"
-  ) +
-  theme_minimal()
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-24</p>
-</div>
+![plot of chunk unnamed-chunk-24](figure/unnamed-chunk-24-1.png)
 
 ## Assessing the quality of the model fit
 Residuals vs. fitted values plot:
 
-
-``` r
-ggplot(data = model, aes(x = .fitted, y = .resid)) +
-  geom_point(alpha = 0.6) +
-  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
-  labs(
-    title = "Residuals vs. Fitted Values",
-    x = "Fitted Velocity",
-    y = "Residuals"
-  ) +
-  theme_minimal()
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-25</p>
-</div>
+![plot of chunk unnamed-chunk-25](figure/unnamed-chunk-25-1.png)
 From Residuals vs. fitted values plot, we can see that the points are randomly distributed around 0 without any pattern. This shows that the linear model holds good and the relationship between velocity and distance is linear.
 
 Residual distribution:
 
-
-``` r
-ggplot(data = model, aes(x = .resid)) +
-  geom_histogram(fill = "skyblue", bins = 5) +
-  labs(title = "Distribution of Residuals") +
-  theme_minimal()
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-26</p>
-</div>
+![plot of chunk unnamed-chunk-26](figure/unnamed-chunk-26-1.png)
 
 Q-Q plot for normality:
 
-
-``` r
-qqnorm(residuals(model))
-qqline(residuals(model), col = "red")
-```
-
-<div class="figure" style="text-align: center">
-<img src="figure/unnamed-chunk-27-1.png" alt="plot of chunk unnamed-chunk-27" width="80%" />
-<p class="caption">plot of chunk unnamed-chunk-27</p>
-</div>
+![plot of chunk unnamed-chunk-27](figure/unnamed-chunk-27-1.png)
 In the Q-Q plot, majority of the points fall near the red line, indicating that the residuals are approximately normal.The points at the left and right tail, deviate from the red line which indicates the presence of heavy tails in the distributions. This can also be observed from the residual histogram which follows an approximate bell shaped curve.  
 
 Model fit quality:
@@ -492,10 +237,6 @@ Model fit quality:
 The RSE (258.93) and RSME (253.48) are close to each other, which suggests homoscedasticity, i.e, residuals have constant variance. The model typical prediction error is around 253-259 km/s. A high R-squared (0.9419) shows that the model fits the data very well.
 
 Distance Coefficient Significance:
-
-``` r
-summary(model)$coefficients["distance", c("Estimate", "Std. Error", "Pr(>|t|)")]
-```
 
 ```
 ##     Estimate   Std. Error     Pr(>|t|) 

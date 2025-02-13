@@ -31,7 +31,7 @@ load("./galaxies.RData")
 
 ### Dataset
 
-```{r}
+```{r, echo=FALSE}
 head(galaxies)
 glimpse(galaxies)
 ```
@@ -40,11 +40,11 @@ The dataset contains three columns: Galaxy, velocity and distance. Where, the Ga
 
 ### Summary Statistics
 
-```{r}
+```{r, echo=FALSE}
 summary(galaxies)
 ```
 
-```{r, message=FALSE}
+```{r, message=FALSE, echo=FALSE}
 attach(galaxies)
 
 ```
@@ -53,25 +53,25 @@ attach(galaxies)
 In this part, we look at velocity and distance individually.
 
 Range of Velocity:
-```{r}
+```{r, echo=FALSE}
 range <-range(velocity)
 print(paste("Min: ", range[1], "; Max: ", range[2]))
 
 ```
 
 Variance and Standard Deviation of Velocity:
-```{r}
+```{r, echo=FALSE}
 print(paste("Variance:", var(velocity)))
 print(paste("Standard Deviation:", sd(velocity)))
 
 ```
 IQR of Velocity:
-```{r}
+```{r, echo=FALSE}
 print(paste("IQR of velocity:", IQR(velocity)))
 ```
 
 Outliers in velocity (using 1.5 * IQR):
-```{r}
+```{r, echo=FALSE}
 
 Q1 <- quantile(velocity, 0.25)
 Q3 <- quantile(velocity, 0.75)
@@ -84,7 +84,7 @@ outliers <- velocity[velocity < lower_bound | velocity > velocity]
 print(outliers)
 ```
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies, aes(x = velocity)) +
   geom_histogram(fill = "skyblue", color = "black", bins = 5, alpha = 0.7) +  # Histogram
   geom_vline(aes(xintercept = mean(velocity, na.rm = TRUE)), 
@@ -99,14 +99,14 @@ ggplot(galaxies, aes(x = velocity)) +
            label = "Median", color = "red", angle = 90, vjust = -1, hjust=0.8)
 ```
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies , aes(x = velocity)) +
   geom_density(alpha = 0.6, fill='lightblue') +
   labs(title = "Density Plot of Velocity") +
   theme_minimal()
 ```
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies, aes(y = velocity)) +
   geom_boxplot(fill = "skyblue") +
   labs(title = "Velocity Boxplot") +
@@ -117,22 +117,22 @@ Velocity: The median velocity (827.0 km/s) is lesser than the mean velocity (924
 
 
 Range of Distance:
-```{r}
+```{r, echo=FALSE}
 range <- range(distance)
 print(paste("Min: ", range[1], "; Max: ", range[2]))
 ```
 Variance and Standard Deviation of Distance:
-```{r}
+```{r, echo=FALSE}
 print(paste("Variance:", var(distance)))
 print(paste("Standard Deviation:", sd(distance)))
 ```
 IQR of Distance:
-```{r}
+```{r, echo=FALSE}
 print(paste("IQR of distance:", IQR(distance)))
 ```
 
 Outliers in distance (using 1.5 * IQR):
-```{r}
+```{r, echo=FALSE}
 Q1 <- quantile(distance, 0.25)
 Q3 <- quantile(distance, 0.75)
 IQR_value <- IQR(distance)
@@ -144,7 +144,7 @@ outliers <- distance[distance < lower_bound | distance > upper_bound]
 print(outliers)
 ```
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies, aes(x = distance)) +
   geom_histogram(fill = "lavender", color = "black", bins = 5, alpha = 0.7) +  # Histogram
   geom_vline(aes(xintercept = mean(distance)), 
@@ -159,14 +159,14 @@ ggplot(galaxies, aes(x = distance)) +
            label = "Median", color = "red", angle = 90, vjust = -1, hjust=0.8)
 ```
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies , aes(x = distance)) +
   geom_density(alpha = 0.6, fill='lavender') +
   labs(title = "Density Plot of Distance") +
   theme_minimal()
 ```
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies, aes(y = distance)) +
   geom_boxplot(fill = "lavender") +
   labs(title = "Distance Boxplot") +
@@ -179,7 +179,7 @@ Distance: the median distance (13.08 Mpc) is greater than the mean distance (12.
 ### Bivariate Analysis
 Correlation matrix:
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 numerical_data <- galaxies %>%
   select(velocity, distance)
 
@@ -202,14 +202,14 @@ ggplot(cor_matrix_melt, aes(x = Var1, y = Var2, fill = value)) +
 ```
 
 Pearson Correlation Test:
-```{r}
+```{r, echo=FALSE}
 cor_test <- cor.test(distance, velocity, method = "pearson")
 print(cor_test)
 ```
 
 Linear Relationship:
 
-```{r, message=FALSE, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies, aes(x = distance, y = velocity)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", color = "red") +
@@ -225,13 +225,13 @@ model <- lm(velocity ~ distance + 0, data = galaxies)
 ```
 
 Model Summary:
-```{r}
+```{r, echo=FALSE}
 summary(model)
 ```
 
 Plotting the Linear Model:
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(galaxies, aes(x = distance, y = velocity)) +
   geom_point(alpha = 0.6) +
   geom_smooth(
@@ -251,7 +251,7 @@ ggplot(galaxies, aes(x = distance, y = velocity)) +
 ## Assessing the quality of the model fit
 Residuals vs. fitted values plot:
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(data = model, aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.6) +
   geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
@@ -266,7 +266,7 @@ From Residuals vs. fitted values plot, we can see that the points are randomly d
 
 Residual distribution:
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 ggplot(data = model, aes(x = .resid)) +
   geom_histogram(fill = "skyblue", bins = 5) +
   labs(title = "Distribution of Residuals") +
@@ -275,7 +275,7 @@ ggplot(data = model, aes(x = .resid)) +
 
 Q-Q plot for normality:
 
-```{r, fig.align="center", out.width="80%"}
+```{r, echo=FALSE}
 qqnorm(residuals(model))
 qqline(residuals(model), col = "red")
 ```
@@ -290,7 +290,7 @@ print(paste("R-squared: ", summary(model)$r.squared))
 The RSE (258.93) and RSME (253.48) are close to each other, which suggests homoscedasticity, i.e, residuals have constant variance. The model typical prediction error is around 253-259 km/s. A high R-squared (0.9419) shows that the model fits the data very well.
 
 Distance Coefficient Significance:
-```{r}
+```{r, echo=FALSE}
 summary(model)$coefficients["distance", c("Estimate", "Std. Error", "Pr(>|t|)")]
 ```
 The Estimate of the coefficient is calculated as 76.58. The standard error is small, indicating a more precise estimation. Since p < 0.05, "distance" is a statistically significant predictor. The near-zero p value shows that distance has a meaningful effect on velocity.
